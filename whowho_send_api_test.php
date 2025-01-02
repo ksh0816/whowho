@@ -10,40 +10,40 @@
 	log_write($logFile, date("Y-m-d H:i:s")." [Request Start] \n");
 
 	// token 발급 5회까지 요청
-	// for ($i=1; $i <= 5; $i++) {
+	for ($i=1; $i <= 5; $i++) {
 
-	// 	//토큰 발급 url
-	// 	$url_token = $domain."/apis/v1/auth/authenticate";
+		//토큰 발급 url
+		$url_token = $domain."/apis/v1/auth/authenticate";
 	
-	// 	$data_arr = array(
-	// 		'username'=>$username,
-	// 		'password'=>$password
-	// 	);
+		$data_arr = array(
+			'username'=>$username,
+			'password'=>$password
+		);
 		
-	// 	$headers = rest_header();
-	// 	$data_json  = json_encode($data_arr);
-	// 	log_write($logFile, date("Y-m-d H:i:s")." [API send]: $data_json \n");
+		$headers = rest_header();
+		$data_json  = json_encode($data_arr);
+		log_write($logFile, date("Y-m-d H:i:s")." [API send]: $data_json \n");
 		
-	// 	//토큰
-	// 	$token = rest_post($url_token, $headers, $data_json);
-	// 	log_write($logFile, date("Y-m-d H:i:s")." [API return]: $token \n");
+		//토큰
+		$token = rest_post($url_token, $headers, $data_json);
+		log_write($logFile, date("Y-m-d H:i:s")." [API return]: $token \n");
 		
-	// 	$token_decode = json_decode($token);
-	// 	$token_val = $token_decode->authToken;
+		$token_decode = json_decode($token);
+		$token_val = $token_decode->authToken;
 
-	// 	if ($token_val != "") break;
-	// 	if ($token_val == "" && $i == 5) {
-	// 		// log_write($logFile, date("Y-m-d H:i:s")." [error]: token 발급 실패");
-	// 		$subject = date("Y-m-d H:i:s")." whowho token request error";
-	// 		$reqData = "API sended: ".date("Y-m-d H:i:s")."\nheader: ".json_encode($headers)."\ndata : $data_json \n";
-	// 		customError($subject, $reqData, "ksh2@smartel.co.kr");
-	// 		exit;
-	// 	}
-	// }
+		if ($token_val != "") break;
+		if ($token_val == "" && $i == 5) {
+			// log_write($logFile, date("Y-m-d H:i:s")." [error]: token 발급 실패");
+			$subject = date("Y-m-d H:i:s")." whowho token request error";
+			$reqData = "API sended: ".date("Y-m-d H:i:s")."\nheader: ".json_encode($headers)."\ndata : $data_json \n";
+			customError($subject, $reqData, "ksh2@smartel.co.kr");
+			exit;
+		}
+	}
 
-	$token_val = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzbWFydGVsIiwiZXhwIjoxNzM1Mjk1NjYwLCJpYXQiOjE3MzUyNzc2NjB9.aVs1Eqp24psjrsSNlB2lFga-jUxGtvnhLPvym1dQAXk";
-	// echo $token_val;
-	// exit;
+	// $token_val = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzbWFydGVsIiwiZXhwIjoxNzM1Mjk1NjYwLCJpYXQiOjE3MzUyNzc2NjB9.aVs1Eqp24psjrsSNlB2lFga-jUxGtvnhLPvym1dQAXk";
+	echo $token_val;
+	exit;
 	
 	if ($token_val != "") {
 	
